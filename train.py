@@ -1,8 +1,11 @@
 import numpy as np
 import random
+import os
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 class DQNAgent:
     def __init__(self, state_size, action_size, learning_rate=0.001, discount_factor=0.99, epsilon=1.0, epsilon_decay=0.995, epsilon_min=0.01):
@@ -95,4 +98,4 @@ for episode in range(num_episodes):
     agent.replay(batch_size)
 
 
-agent.model.save('/home/vineethm/Documents/temp/model/trained')
+agent.model.save(f'{dir_path}/trained')

@@ -7,7 +7,10 @@ app = Flask(__name__)
 
 @app.route('/recommend', methods=['get'])
 def recommend_content():
-    agent=DQNAgent()
+    args=request.args.to_dict()
+    print(args)
+    student_id=args.get('student_id')
+    agent=DQNAgent(student_id)
     action=agent.act()
     response={
         'module':action.item()
