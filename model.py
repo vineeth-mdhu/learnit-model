@@ -21,8 +21,9 @@ def get_data(student_id):
 
 
 class DQNAgent:
-    def __init__(self,student_id,learning_rate=0.001, discount_factor=0.99):
+    def __init__(self,student_id,course_id,learning_rate=0.001, discount_factor=0.99):
         self.student_id=student_id
+        self.course_id=course_id
         print("student",student_id)
         self.learning_rate = learning_rate
         self.discount_factor = discount_factor
@@ -51,6 +52,7 @@ class DQNAgent:
         action=np.argmax(self.model.predict(next_state))
         print(type(action))
         data = supabase.table("state").update({"action": action.item()}).eq("student_id", self.student_id).execute()
+        success = supabase.table("user_enrollment").update({"recommendation": action.item()}).eq("user_id", self.student_id).eq('course_id',self.course_id).execute()
         return action
     
 
