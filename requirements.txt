@@ -1,3 +1,5 @@
 tensorflow
 flask
 numpy
+python-dotenv
+supabase
