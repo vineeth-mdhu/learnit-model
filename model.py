@@ -51,7 +51,7 @@ class DQNAgent:
         next_state=np.reshape(next_state,[1,state_size])
         action=np.argmax(self.model.predict(next_state))
         print(type(action))
-        data = supabase.table("state").update({"action": action.item()}).eq("student_id", self.student_id).execute()
+        data = supabase.table("state").update({"action": action.item()}).eq("student_id", self.student_id).eq("course_id",self.course_id).execute()
         success = supabase.table("user_enrollment").update({"recommendation": action.item()}).eq("user_id", self.student_id).eq('course_id',self.course_id).execute()
         return action
     
